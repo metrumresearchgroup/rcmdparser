@@ -22,10 +22,12 @@ require (
 	github.com/spf13/jwalterweatherman v0.0.0-20180109140146-7c0cea34c8ec // indirect
 	github.com/spf13/pflag v1.0.0 // indirect
 	github.com/spf13/viper v1.0.0
+	github.com/stretchr/testify v1.3.0 // indirect
 	github.com/ulikunitz/xz v0.5.4 // indirect
 	golang.org/x/crypto v0.0.0-20180718160520-a2144134853f // indirect
 	golang.org/x/sys v0.0.0-20180318190847-01acb38716e0 // indirect
 	golang.org/x/text v0.3.0 // indirect
 	gopkg.in/yaml.v2 v2.1.1 // indirect
     github.com/franela/goblin
+    github.com/stretchr/testify/assert
 )

@@ -15,18 +15,24 @@ func ParseCheckLog(e []byte) LogEntries {
 	var notes []string
 	var warnings []string
 	var meta CheckMeta
-	for _, ent := range splitOutput {
+	for _, entry := range splitOutput {
+
 		switch {
-		case bytes.Contains(ent, []byte("... NOTE")):
-			notes = append(notes, string(ent))
-		case bytes.Contains(ent, []byte("... ERROR")):
-			errors = append(errors, string(ent))
-		case bytes.Contains(ent, []byte("... WARNING")):
-			warnings = append(warnings, string(ent))
+
+		case bytes.Contains(entry, []byte("... NOTE")):
+			notes = append(notes, strings.TrimSpace(string(entry)))
+
+		case bytes.Contains(entry, []byte("... ERROR")):
+			errors = append(errors, strings.TrimSpace(string(entry)))
+
+		case bytes.Contains(entry, []byte("... WARNING")):
+			warnings = append(warnings, strings.TrimSpace(string(entry)))
+
 		default:
-			meta.Parse(ent)
+			meta.Parse(entry)
 		}
 	}
+
 	return LogEntries{
 		Meta:     meta,
 		Errors:   errors,

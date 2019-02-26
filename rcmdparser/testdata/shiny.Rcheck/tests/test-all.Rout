@@ -1,0 +1,201 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(shiny)
+> 
+> test_check("shiny")
+  55: stop
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#35]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  55: stop
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#36]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  55: stop
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#37]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  55: stop
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#38]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  55: stop
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#39]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  62: stop
+  61: value[[3L]]
+  60: tryCatchOne
+  59: tryCatchList
+  58: tryCatch
+  57: <Anonymous>
+  56: mapply
+  55: valuesFromJSON
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#40]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  62: stop
+  61: value[[3L]]
+  60: tryCatchOne
+  59: tryCatchList
+  58: tryCatch
+  57: <Anonymous>
+  56: mapply
+  55: valuesFromJSON
+  54: private$decodeStateQueryString
+  43: .subset2(public_bind_env, "initialize")
+  42: RestoreContext$new
+  34: eval [testthat/test-bookmarking.R#44]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-bookmarking.R#3]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  93: stop
+  92: <reactive:r> [testthat/test-reactivity.r#969]
+  90: .func
+  87: contextFunc
+  86: env$runWith
+  79: ctx$run
+  78: self$.updateValue
+  76: r
+  75: <observer> [testthat/test-reactivity.r#978]
+  73: contextFunc
+  72: env$runWith
+  65: ctx$run
+  64: run
+  45: flushCallback
+  44: FUN
+  43: lapply
+  42: ctx$executeFlushCallbacks
+  41: .getReactiveEnvironment()$flush
+  40: flushReact
+  34: eval [testthat/test-reactivity.r#993]
+  33: eval
+  24: test_code
+  23: test_that
+  22: eval [testthat/test-reactivity.r#965]
+  21: eval
+  12: test_code
+  11: source_file
+   8: FUN
+   7: lapply
+   4: test_files
+   3: test_dir
+   2: test_package_dir
+   1: test_check
+  78: <Anonymous>
+══ testthat results  ═══════════════════════════════════════════════════════════
+OK: 743 SKIPPED: 0 FAILED: 0
+> 
+> proc.time()
+   user  system elapsed 
+  5.617   0.409  11.374 
