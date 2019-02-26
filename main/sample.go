@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/metrumresearchgroup/rcmdparser/rcmdparser"
+	"github.com/spf13/afero"
 	"io"
 	"io/ioutil"
 	"os"
@@ -23,5 +24,7 @@ func main() {
 	byteData, _  = ioutil.ReadAll(r)
 	output := rcmdparser.ParseTestLog(byteData)
 	fmt.Println(fmt.Sprintf("========Output of Parser=========\n%s\n=========END=========", output))
+
+	groupedOutput := rcmdparser.ReadCheckDir(afero.NewMemMapFs(), )
 
 }

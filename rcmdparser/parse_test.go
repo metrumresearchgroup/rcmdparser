@@ -3,6 +3,7 @@ package rcmdparser
 import (
 	"reflect"
 	"testing"
+	"github.com/franela/goblin"
 )
 
 func TestParseTestLog(t *testing.T) {
@@ -94,4 +95,79 @@ func TestParseTestLog(t *testing.T) {
 			t.Errorf("GOT: %v, WANT: %v", actual, tt.expected)
 		}
 	}
+}
+
+func TestParseCheckLog(t *testing.T) {
+
+	var inputLog =
+`* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'my_median':
+my_median
+  Code: function(x, ...)
+  Docs: function(...)
+  Argument names in code not in docs:
+    x
+  Mismatches in argument names:
+    Position: 1 Code: x Docs: ...
+
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... WARNING
+'library' or 'require' call not declared from: ‘testdoc’
+* checking tests ... ERROR
+  Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.
+Complete output:
+  > library(testthat)
+  > library(testdoc)
+  Error in library(testdoc) : there is no package called 'testdoc'
+  Execution halted
+* DONE
+Status: 1 ERROR, 2 WARNINGs`
+
+	var expected = LogEntries {
+		Errors: []string{
+
+`* checking tests ... ERROR
+  Running ‘testthat.R’
+Running the tests in ‘tests/testthat.R’ failed.`,
+
+		},
+		Meta: CheckMeta{},
+		Notes: []string{},
+		Warnings: []string {
+
+`* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'my_median':
+my_median
+  Code: function(x, ...)
+  Docs: function(...)
+  Argument names in code not in docs:
+    x
+  Mismatches in argument names:
+    Position: 1 Code: x Docs: ...`,
+
+`* checking for unstated dependencies in ‘tests’ ... WARNING
+'library' or 'require' call not declared from: ‘testdoc’`,
+
+		},
+
+	}
+
+	var actual = ParseCheckLog([]byte(inputLog))
+
+	g := goblin.Goblin(t)
+	g.Describe("Check log", func() {
+		g.It("should be parsed", func() {
+			g.Assert(actual).Equal(expected)
+		})
+	})
 }

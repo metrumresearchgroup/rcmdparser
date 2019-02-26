@@ -27,6 +27,7 @@ func TestReadCheckDir(t *testing.T) {
 	goutils.WriteLinesFS(testFS, []string{"log"}, "FailedTest/00check.log")
 	goutils.WriteLinesFS(testFS, []string{"install"}, "FailedTest/00install.out")
 	goutils.WriteLinesFS(testFS, []string{"failed-tests"}, "FailedTest/tests/testthat.Rout.fail")
+	
 	var cdtests = []struct {
 		in       string
 		expected CheckData
