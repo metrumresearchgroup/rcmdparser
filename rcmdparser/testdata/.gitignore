@@ -1,7 +1,7 @@
 shiny.Rcheck/shiny/
-shiny.Rcheck/**/*.R
-shiny.Rcheck/**/*.Rs
+**/*.R
+**/*.Rs
 **/*.pdf
 **/*.RDS
 **/*.RD
-shiny.Rcheck/00_pkg_src/
+**/00_pkg_src/

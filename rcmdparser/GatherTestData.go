@@ -1,12 +1,11 @@
 package rcmdparser
 
 import (
-	"errors"
-	"fmt"
 	"github.com/spf13/afero"
+	"testing"
 )
 
-func GetFileAsByteSlice(filepath string) ([]byte, error) {
+func GetFileAsByteSlice(t *testing.T, filepath string) []byte {
 	//var fileSystem = new(afero.MemMapFs)
 	var fileSystem = new(afero.OsFs)
 
@@ -16,24 +15,36 @@ func GetFileAsByteSlice(filepath string) ([]byte, error) {
 
 	content, err := afero.ReadFile(fileSystem, filepath)
 	if err != nil {
-		return nil, errors.New(fmt.Sprintf("Error: Could not read file %s", filepath))
+		//return nil, errors.New(fmt.Sprintf("Error: Could not read file %s", filepath))
+		t.Error(err)
 	}
 
-	return content, nil
+	return content
 
 }
 
-func GetTestShinyCheckLog() ([]byte, error) {
-	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/00check.log")
-	return content, err
+func GetTestShinyCheckLog(t *testing.T) []byte {
+	content := GetFileAsByteSlice(t,"./testdata/shiny.Rcheck/00check.log")
+	return content
 }
 
-func GetTestShinyInstallLog() ([]byte, error) {
-	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/00install.out")
-	return content, err
+func GetTestShinyInstallLog(t *testing.T) []byte {
+	content := GetFileAsByteSlice(t, "./testdata/shiny.Rcheck/00install.out")
+	return content
 }
 
-func GetTestShinyTestLog() ([]byte, error) {
-	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/tests/test-all.Rout")
-	return content, err
+func GetTestShinyTestLog(t *testing.T) []byte {
+	content := GetFileAsByteSlice(t,"./testdata/shiny.Rcheck/tests/test-all.Rout")
+	return content
 }
+
+func GetTestReleasyCheckLog(t *testing.T) []byte {
+	content := GetFileAsByteSlice(t,"./testdata/releasy.Rcheck/00check.log")
+	return content
+}
+
+func GetTestReleasyTestLog(t *testing.T) []byte {
+	return GetFileAsByteSlice(t, "./testdata/releasy.Rcheck/tests/test-all.Rout")
+}
+
+//Add more readable getters here.

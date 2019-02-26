@@ -6,22 +6,22 @@ import (
 )
 
 // Parse consumes a log entry and updates the check metadata if relevant
-func (cm *CheckMeta) Parse(ent []byte) {
+func (cm *CheckMeta) Parse(entry []byte) {
 	switch {
-	case bytes.Contains(ent, []byte("log directory")):
-		cm.LogDir = extractBetweenQuotes(ent)
-	case bytes.Contains(ent, []byte("R version")):
-		cm.Rversion = parseRVersion(ent)
-	case bytes.Contains(ent, []byte("platform:")):
+	case bytes.Contains(entry, []byte("log directory")):
+		cm.LogDir = extractBetweenQuotes(entry)
+	case bytes.Contains(entry, []byte("R version")):
+		cm.Rversion = parseRVersion(entry)
+	case bytes.Contains(entry, []byte("platform:")):
 		cm.Platform = string(
-			bytes.Replace(ent,
-				[]byte("using platform: "),
+			bytes.Replace(entry,
+				[]byte("* using platform: "),
 				[]byte(""), 1),
 		)
-	case bytes.Contains(ent, []byte("options")):
-		cm.Options = extractBetweenQuotes(ent)
-	case bytes.Contains(ent, []byte("this is package")):
-		cm.Package, cm.PackageVersion = parsePackageInfo(ent)
+	case bytes.Contains(entry, []byte("options")):
+		cm.Options = extractBetweenQuotes(entry)
+	case bytes.Contains(entry, []byte("this is package")):
+		cm.Package, cm.PackageVersion = parsePackageInfo(entry)
 	default:
 	}
 }

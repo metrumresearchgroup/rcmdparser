@@ -1,0 +1,8 @@
+* installing *source* package ‘releasy’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+Error in read.table(zfile, header = TRUE, as.is = FALSE) : 
+  more columns than column names
+ERROR: lazydata failed for package ‘releasy’
+* removing ‘/Users/johncarlos/gitspace/releasy/checkplace/releasy.Rcheck/releasy’
