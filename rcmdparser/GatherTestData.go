@@ -27,3 +27,13 @@ func GetTestShinyCheckLog() ([]byte, error) {
 	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/00check.log")
 	return content, err
 }
+
+func GetTestShinyInstallLog() ([]byte, error) {
+	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/00install.out")
+	return content, err
+}
+
+func GetTestShinyTestLog() ([]byte, error) {
+	content, err := GetFileAsByteSlice("./testdata/shiny.Rcheck/tests/test-all.Rout")
+	return content, err
+}
