@@ -1,9 +1,10 @@
 package rcmdparser
 
 import (
+	"fmt"
+	"github.com/franela/goblin"
 	"reflect"
 	"testing"
-	"github.com/franela/goblin"
 )
 
 func TestParseTestLog(t *testing.T) {
@@ -133,19 +134,24 @@ Complete output:
 * DONE
 Status: 1 ERROR, 2 WARNINGs`
 
-	var expected = LogEntries {
+	expected := LogEntries{
 		Errors: []string{
 
-`* checking tests ... ERROR
+			`checking tests ... ERROR
   Running ‘testthat.R’
-Running the tests in ‘tests/testthat.R’ failed.`,
-
+Running the tests in ‘tests/testthat.R’ failed.
+Complete output:
+  > library(testthat)
+  > library(testdoc)
+  Error in library(testdoc) : there is no package called 'testdoc'
+  Execution halted
+`,
 		},
-		Meta: CheckMeta{},
+		Meta:  CheckMeta{},
 		Notes: []string{},
-		Warnings: []string {
+		Warnings: []string{
 
-`* checking for code/documentation mismatches ... WARNING
+			`checking for code/documentation mismatches ... WARNING
 Codoc mismatches from documentation object 'my_median':
 my_median
   Code: function(x, ...)
@@ -153,21 +159,38 @@ my_median
   Argument names in code not in docs:
     x
   Mismatches in argument names:
-    Position: 1 Code: x Docs: ...`,
+    Position: 1 Code: x Docs: ...
 
-`* checking for unstated dependencies in ‘tests’ ... WARNING
-'library' or 'require' call not declared from: ‘testdoc’`,
+`,
 
+			`checking for unstated dependencies in ‘tests’ ... WARNING
+'library' or 'require' call not declared from: ‘testdoc’
+`,
 		},
-
 	}
+
+
 
 	var actual = ParseCheckLog([]byte(inputLog))
 
+	fmt.Println("Printing below:")
+	fmt.Println(expected.Warnings[1])
+	fmt.Println("----")
+	fmt.Println(actual.Warnings[1])
+	fmt.Println("Above.")
 	g := goblin.Goblin(t)
-	g.Describe("Check log", func() {
-		g.It("should be parsed", func() {
-			g.Assert(actual).Equal(expected)
+	g.Describe("Log with errors and warnings", func() {
+		g.It("shouldn't drive me crazy like this0", func() {
+			g.Assert(actual.Warnings[0]).Equal(expected.Warnings[0])
+		})
+		g.It("shouldn't drive me crazy like this1", func() {
+			g.Assert(actual.Warnings[1]).Equal(expected.Warnings[1])
+		})
+		g.It("should parse errors correctly", func() {
+			g.Assert(actual.Errors).Equal(expected.Errors)
+		})
+		g.It("should parse warnings correctly", func() {
+			g.Assert(actual.Warnings).Equal(expected.Warnings)
 		})
 	})
 }
