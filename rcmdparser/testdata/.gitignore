@@ -5,3 +5,14 @@ shiny.Rcheck/shiny/
 **/*.RDS
 **/*.RD
 **/00_pkg_src/
+**/*.toml
+**/*.html
+**/*.css
+**/*.rdb
+**/*NAMESPACE
+**/*INDEX
+**/*DESCRIPTION
+**/*.rdx
+**/*.h
+**/include/
+**/*.hpp

@@ -9,12 +9,12 @@ import (
 )
 
 // ParseCheckLog parses the check log
-func ParseCheckLog(e []byte) LogEntries {
+func ParseCheckLog(e []byte) CheckLogEntries {
 	splitOutput := bytes.Split(e, []byte("* "))
 	var errors []string
 	var notes []string
 	var warnings []string
-	var meta CheckMeta
+	var meta EnvirnomentInformation
 	for _, entry := range splitOutput {
 
 		switch {
@@ -33,11 +33,11 @@ func ParseCheckLog(e []byte) LogEntries {
 		}
 	}
 
-	return LogEntries{
-		Meta:     meta,
-		Errors:   errors,
-		Notes:    notes,
-		Warnings: warnings,
+	return CheckLogEntries{
+		Environment: meta,
+		Errors:      errors,
+		Notes:       notes,
+		Warnings:    warnings,
 	}
 }
 

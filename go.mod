@@ -4,7 +4,7 @@ require (
 	github.com/dpastoor/goutils v1.1.0
 	github.com/dpastoor/pkgcheck v0.1.1 // indirect
 	github.com/dsnet/compress v0.0.0-20171208185109-cc9eb1d7ad76 // indirect
-	github.com/franela/goblin v0.0.0-20181003173013-ead4ad1d2727 // indirect
+	github.com/franela/goblin v0.0.0-20181003173013-ead4ad1d2727
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db // indirect
 	github.com/hashicorp/hcl v0.0.0-20171017181929-23c074d0eceb // indirect
@@ -22,12 +22,13 @@ require (
 	github.com/spf13/jwalterweatherman v0.0.0-20180109140146-7c0cea34c8ec // indirect
 	github.com/spf13/pflag v1.0.0 // indirect
 	github.com/spf13/viper v1.0.0
-	github.com/stretchr/testify v1.3.0 // indirect
+	github.com/stretchr/testify v1.3.0
 	github.com/ulikunitz/xz v0.5.4 // indirect
 	golang.org/x/crypto v0.0.0-20180718160520-a2144134853f // indirect
 	golang.org/x/sys v0.0.0-20180318190847-01acb38716e0 // indirect
-	golang.org/x/text v0.3.0 // indirect
+	golang.org/x/tools v0.0.0-20190226205152-f727befe758c // indirect
 	gopkg.in/yaml.v2 v2.1.1 // indirect
-    github.com/franela/goblin
-    github.com/stretchr/testify/assert
+//github.com/franela/goblin
+//github.com/stretchr/testify/assert
+//golang.org/x/tools/cmd/cover
 )

@@ -34,7 +34,7 @@ func TestParseShinyTestLog(t *testing.T) {
 func TestParseReleasyCheckLog(t *testing.T) {
 	inputSlice := GetTestReleasyCheckLog(t)
 
-	expected := LogEntries {
+	expected := CheckLogEntries{
 		Errors: []string{
 			`checking whether package ‘releasy’ can be installed ... ERROR
 Installation failed.
@@ -49,6 +49,36 @@ See ‘/Users/johncarlos/gitspace/releasy/checkplace/releasy.Rcheck/00install.ou
 
 }
 
+//Expect 8 ok, none others
+func TestParseRcppTOMLSuccessCheckLog(t *testing.T) {
+
+	inputSlice := GetTestRcppTOMLPassCheckLog(t)
+
+	fixture := CheckOutputInfo{
+		CheckOutputRaw: inputSlice,
+	}
+
+	actual := fixture.Parse()
+
+	assert.Equal(t, 8, actual.Tests.Ok)
+	assert.Equal(t, 0, actual.Tests.Failed)
+	assert.Equal(t, 0, actual.Tests.Skipped)
+
+}
+
+func TestParseRcppTOMLFailCheckLog(t *testing.T) {
+	inputSlice := GetTestRcppTOMLFailCheckLog(t)
+
+	fixture := CheckOutputInfo {
+		CheckOutputRaw: inputSlice,
+	}
+
+	actual := fixture.Parse()
+
+	assert.Equal(t, 7, actual.Tests.Ok)
+	assert.Equal(t, 1, actual.Tests.Failed)
+	assert.Equal(t, 0, actual.Tests.Skipped)
+}
 // Doesn't buy us anything, all Releasy tests pass, a case which is already covered by Shiny.
 //func TestParseReleasyTestLog(t * testing.T) {
 //	inputSlice := GetTestReleasyTestLog(t)

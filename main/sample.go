@@ -25,6 +25,6 @@ func main() {
 	output := rcmdparser.ParseTestLog(byteData)
 	fmt.Println(fmt.Sprintf("========Output of Parser=========\n%s\n=========END=========", output))
 
-	groupedOutput := rcmdparser.ReadCheckDir(afero.NewMemMapFs(), )
+	groupedOutput := rcmdparser.ParseCheckDir(afero.NewMemMapFs(), )
 
 }

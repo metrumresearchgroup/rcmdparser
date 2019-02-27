@@ -1,0 +1,60 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> print(RcppTOML::tomlparse("arrays.toml"))
+List of 3
+ $ array   :List of 6
+  ..$ key1: int [1:3] 1 2 3
+  ..$ key2: chr [1:3] "red" "yellow" "green"
+  ..$ key3:List of 2
+  .. ..$ : int [1:2] 1 2
+  .. ..$ : int [1:3] 3 4 5
+  ..$ key4:List of 2
+  .. ..$ : int [1:2] 1 2
+  .. ..$ : chr [1:3] "a" "b" "c"
+  ..$ key5: int [1:3] 1 2 3
+  ..$ key6: int [1:2] 1 2
+ $ fruit   :List of 2
+  ..$ :List of 3
+  .. ..$ name    : chr "apple"
+  .. ..$ physical:List of 2
+  .. .. ..$ color: chr "red"
+  .. .. ..$ shape: chr "round"
+  .. ..$ variety :List of 2
+  .. .. ..$ :List of 1
+  .. .. .. ..$ name: chr "red delicious"
+  .. .. ..$ :List of 1
+  .. .. .. ..$ name: chr "granny smith"
+  ..$ :List of 2
+  .. ..$ name   : chr "banana"
+  .. ..$ variety:List of 1
+  .. .. ..$ :List of 1
+  .. .. .. ..$ name: chr "plantain"
+ $ products:List of 3
+  ..$ :List of 2
+  .. ..$ name: chr "Hammer"
+  .. ..$ sku : int 738594937
+  ..$ : list()
+  ..$ :List of 3
+  .. ..$ color: chr "gray"
+  .. ..$ name : chr "Nail"
+  .. ..$ sku  : int 284758393
+> 
+> proc.time()
+   user  system elapsed 
+  0.235   0.041   0.262 

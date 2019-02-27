@@ -1,17 +1,28 @@
 package rcmdparser
 
-// TestData represents output of tests and whether it uses testthat
-type TestData struct {
-	HasTests bool
-	Testthat bool
-	Results  []byte
+// FILE LEVEL PARSE
+// CheckResults is a struct of the R CMD check results
+type CheckResults struct {
+	Checks CheckLogEntries
+	Tests  TestResults
 }
 
-// CheckData represents key elements of a R CMD check output directory
-type CheckData struct {
-	Test    TestData
-	Check   []byte
-	Install []byte
+// CheckLogEntries are the parsed results from the check log
+type CheckLogEntries struct {
+	Environment EnvirnomentInformation
+	Errors      []string
+	Warnings    []string
+	Notes       []string
+}
+
+// EnvirnomentInformation stores metadata about the RCMDCHECK
+type EnvirnomentInformation struct {
+	LogDir         string
+	Rversion       string
+	Platform       string
+	Options        string
+	Package        string
+	PackageVersion string
 }
 
 // TestResults is the results from testthat
@@ -23,26 +34,30 @@ type TestResults struct {
 	Available bool
 }
 
-// CheckMeta stores metadata about the RCMDCHECK
-type CheckMeta struct {
-	LogDir         string
-	Rversion       string
-	Platform       string
-	Options        string
-	Package        string
-	PackageVersion string
+/////////////////
+
+//DIRECTORY LEVEL PARSE
+// CheckOutputInfo represents key elements of a R CMD check output directory
+type CheckOutputInfo struct {
+	TestInfo         TestInfo
+	CheckOutputRaw   []byte
+	InstallOutputRaw []byte
+	//CheckParsed      CheckResults
 }
 
-// LogEntries are the parsed results from the check log
-type LogEntries struct {
-	Meta     CheckMeta
-	Errors   []string
-	Warnings []string
-	Notes    []string
+// TestInfo represents output of tests and whether it uses testthat
+type TestInfo struct {
+	HasTests     bool
+	UsesTestthat bool
+	ResultsFile  []byte
 }
 
-// CheckResults is a struct of the R CMD check results
-type CheckResults struct {
-	Checks LogEntries
-	Tests  TestResults
-}
+
+
+
+
+
+
+
+
+

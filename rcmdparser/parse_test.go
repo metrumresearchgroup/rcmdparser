@@ -133,7 +133,7 @@ Complete output:
 * DONE
 Status: 1 ERROR, 2 WARNINGs`
 
-	expected := LogEntries{
+	expected := CheckLogEntries{
 		Errors: []string{
 
 			`checking tests ... ERROR
@@ -145,8 +145,8 @@ Complete output:
   Error in library(testdoc) : there is no package called 'testdoc'
   Execution halted`,
 		},
-		Meta:  CheckMeta{},
-		Notes: []string{},
+		Environment: EnvirnomentInformation{},
+		Notes:       []string{},
 		Warnings: []string{
 
 			`checking for code/documentation mismatches ... WARNING

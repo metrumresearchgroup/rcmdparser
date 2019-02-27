@@ -1,0 +1,32 @@
+
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> ## v0.5 brings more date and time supprt
+> print(RcppTOML::tomlparse("dates_and_times.toml"))
+List of 7
+ $ ld1 : Date[1:1], format: "1979-05-27"
+ $ ldt1: POSIXct[1:1], format: "1979-05-27 07:32:00"
+ $ ldt2: POSIXct[1:1], format: "1979-05-27 00:32:00"
+ $ odt1: POSIXct[1:1], format: "1979-05-27 07:32:00"
+ $ odt2: POSIXct[1:1], format: "1979-05-27 07:32:00"
+ $ odt3: POSIXct[1:1], format: "1979-05-27 07:32:00"
+ $ odt4: POSIXct[1:1], format: "1979-05-27 07:32:00"
+> 
+> proc.time()
+   user  system elapsed 
+  0.233   0.042   0.260 

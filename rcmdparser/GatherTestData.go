@@ -47,4 +47,12 @@ func GetTestReleasyTestLog(t *testing.T) []byte {
 	return GetFileAsByteSlice(t, "./testdata/releasy.Rcheck/tests/test-all.Rout")
 }
 
+func GetTestRcppTOMLPassCheckLog(t *testing.T) []byte {
+	return GetFileAsByteSlice(t, "./testdata/RcppTOML.Rcheck_pass/00check.log")
+}
+
+func GetTestRcppTOMLFailCheckLog(t *testing.T) []byte {
+	return GetFileAsByteSlice(t, "./testdata/RcppTOML.Rcheck_fail/00check.log")
+}
+
 //Add more readable getters here.
