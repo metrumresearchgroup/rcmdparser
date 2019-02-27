@@ -21,6 +21,10 @@ func (c CheckOutputInfo) Parse() CheckResults {
 	}
 	if c.TestInfo.UsesTestthat {
 		lr.Tests = ParseTestLog(c.TestInfo.ResultsFile)
+	} else {
+		//Assume that the test information is in the check log and pull it from there.
+		//TODO: This case may not be as generalizable.
+		lr.Tests = ParseTestsFromCheckLog(c.CheckOutputRaw)
 	}
 	return lr
 }

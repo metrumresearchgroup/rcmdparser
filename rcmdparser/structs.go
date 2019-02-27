@@ -30,6 +30,7 @@ type TestResults struct {
 	Ok        int
 	Skipped   int
 	Failed    int
+	Unknown   int
 	Output    string
 	Available bool
 }

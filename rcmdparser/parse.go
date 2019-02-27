@@ -71,3 +71,38 @@ func ParseTestLog(e []byte) TestResults {
 	}
 	return tr
 }
+
+func ParseTestsFromCheckLog(rawLog []byte) TestResults {
+	if len(rawLog) == 0 {
+		return TestResults{}
+	}
+	var ok = 0
+	var failed = 0
+	var skipped = 0
+	var unknown = 0
+
+	splitOutput := bytes.Split(rawLog, []byte("* "))
+	for _, entry := range splitOutput {
+
+		if bytes.Contains(entry, []byte("checking tests ...")) {
+			tests := bytes.Split(entry, []byte("Running "))[1:] //Cut off the "checking tests" section.
+			for _, test := range tests {
+				if bytes.Contains(test, []byte("ERROR")) {
+					failed++
+				} else if bytes.Contains(test, []byte(" ... OK")) {
+					ok++
+				} else {
+					unknown++
+				}
+			}
+		}
+	}
+
+	//TODO: Can tests be skipped like this?
+	return TestResults{
+		Ok: ok,
+		Failed: failed,
+		Skipped: skipped,
+		Unknown: unknown,
+	}
+}

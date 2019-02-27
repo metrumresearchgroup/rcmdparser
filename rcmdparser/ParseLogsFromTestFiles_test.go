@@ -63,6 +63,7 @@ func TestParseRcppTOMLSuccessCheckLog(t *testing.T) {
 	assert.Equal(t, 8, actual.Tests.Ok)
 	assert.Equal(t, 0, actual.Tests.Failed)
 	assert.Equal(t, 0, actual.Tests.Skipped)
+	assert.Equal(t, 1, actual.Tests.Unknown)
 
 }
 
@@ -76,8 +77,9 @@ func TestParseRcppTOMLFailCheckLog(t *testing.T) {
 	actual := fixture.Parse()
 
 	assert.Equal(t, 7, actual.Tests.Ok)
-	assert.Equal(t, 1, actual.Tests.Failed)
+	assert.Equal(t, 0, actual.Tests.Failed)
 	assert.Equal(t, 0, actual.Tests.Skipped)
+	assert.Equal(t, 2, actual.Tests.Unknown)
 }
 // Doesn't buy us anything, all Releasy tests pass, a case which is already covered by Shiny.
 //func TestParseReleasyTestLog(t * testing.T) {
