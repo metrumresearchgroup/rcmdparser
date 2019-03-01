@@ -1,0 +1,91 @@
+* using log directory ‘/Users/johncarlos/trash/hold_this_fail/data.table.Rcheck’
+* using R version 3.5.2 (2018-12-20)
+* using platform: x86_64-apple-darwin15.6.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘data.table/DESCRIPTION’ ... OK
+* this is package ‘data.table’ version ‘1.12.0’
+* checking package namespace information ... OK
+* checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘bit64’ ‘R.utils’ ‘xts’ ‘nanotime’ ‘zoo’
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘data.table’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘bit64’
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking include directives in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... ERROR
+  Running ‘autoprint.R’
+  Comparing ‘autoprint.Rout’ to ‘autoprint.Rout.save’ ... OK
+  Running ‘froll.R’
+  Running ‘knitr.R’
+  Comparing ‘knitr.Rout’ to ‘knitr.Rout.save’ ... OK
+  Running ‘main.R’ [46s/27s]
+Running the tests in ‘tests/main.R’ failed.
+Last 13 lines of output:
+   9: 1253 0.667   485
+  10: 1739 0.636     5
+  
+  Error in eval(exprs[i], envir) : 
+    1 error out of 7494 in 26.4s elapsed (42.3s cpu) on Fri Mar  1 16:04:12 2019. [endian==little, sizeof(long double)==16, sizeof(pointer)==8, TZ=America/New_York, locale='C/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8', l10n_info()='MBCS=TRUE; UTF-8=TRUE; Latin-1=FALSE']. Search inst/tests/tests.Rraw for test number 1702.4.
+  Calls: test.data.table -> sys.source -> eval -> eval
+  In addition: Warning messages:
+  1: In fread(testDir("isoweek_test.csv")) :
+    Stopped early on line 6. Expected 2 fields but found 1. Consider fill=TRUE and comment.char=. First discarded non-empty line: <<"This is narry a date!">>
+  2: In doTryCatch(return(expr), name, parentenv, handler) :
+    unable to load shared object '/Library/Frameworks/R.framework/Resources/modules//R_X11.so':
+    dlopen(/Library/Frameworks/R.framework/Resources/modules//R_X11.so, 6): Library not loaded: /opt/X11/lib/libSM.6.dylib
+    Referenced from: /Library/Frameworks/R.framework/Resources/modules//R_X11.so
+    Reason: image not found
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking re-building of vignette outputs ... OK
+* DONE
+Status: 1 ERROR, 2 NOTEs

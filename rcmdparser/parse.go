@@ -85,9 +85,12 @@ func ParseTestsFromCheckLog(rawLog []byte) TestResults {
 	for _, entry := range splitOutput {
 
 		if bytes.Contains(entry, []byte("checking tests ...")) {
-			tests := bytes.Split(entry, []byte("Running "))[1:] //Cut off the "checking tests" section.
+
+			//I have to split on "\sRunning\s" to avoid splitting on the word "Running" when it reappaers in failure results,
+			//specifically with regards to the data.table failed log.
+			tests := bytes.Split(entry, []byte(" Running "))[1:] //Cut off the "checking tests" section.
 			for _, test := range tests {
-				if bytes.Contains(test, []byte("ERROR")) {
+				if bytes.Contains(test, []byte("ERROR")) || bytes.Contains(test, []byte("fail")) {
 					failed++
 				} else if bytes.Contains(test, []byte(" ... OK")) {
 					ok++

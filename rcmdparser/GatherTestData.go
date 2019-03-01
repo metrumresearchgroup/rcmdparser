@@ -55,4 +55,12 @@ func GetTestRcppTOMLFailCheckLog(t *testing.T) []byte {
 	return GetFileAsByteSlice(t, "./testdata/RcppTOML.Rcheck_fail/00check.log")
 }
 
+func GetTestDataDotTablePassCheckLog(t *testing.T) [] byte {
+	return GetFileAsByteSlice(t, "./testdata/data.table.Rcheck_pass/00check.log")
+}
+
+func GetTestDataDotTableFailCheckLog(t *testing.T) [] byte {
+	return GetFileAsByteSlice(t, "./testdata/data.table.Rcheck_fail/00check.log")
+}
+
 //Add more readable getters here.

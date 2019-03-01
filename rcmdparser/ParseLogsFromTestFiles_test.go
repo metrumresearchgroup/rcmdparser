@@ -81,6 +81,37 @@ func TestParseRcppTOMLFailCheckLog(t *testing.T) {
 	assert.Equal(t, 0, actual.Tests.Skipped)
 	assert.Equal(t, 2, actual.Tests.Unknown)
 }
+
+func TestParseDataDotTablePassCheckLog(t *testing.T) {
+	inputSlice := GetTestDataDotTablePassCheckLog(t)
+
+	fixture := CheckOutputInfo {
+		CheckOutputRaw: inputSlice,
+	}
+
+	actual := fixture.Parse()
+
+	assert.Equal(t, 2, actual.Tests.Ok)
+	assert.Equal(t, 0, actual.Tests.Failed)
+	assert.Equal(t, 0, actual.Tests.Skipped)
+	assert.Equal(t, 2, actual.Tests.Unknown)
+}
+
+func TestParseDataDotTableFailCheckLog(t *testing.T) {
+	inputSlice := GetTestDataDotTableFailCheckLog(t)
+
+	fixture := CheckOutputInfo {
+		CheckOutputRaw: inputSlice,
+	}
+
+	actual := fixture.Parse()
+
+	assert.Equal(t, 2, actual.Tests.Ok)
+	assert.Equal(t, 1, actual.Tests.Failed)
+	assert.Equal(t, 0, actual.Tests.Skipped)
+	assert.Equal(t, 1, actual.Tests.Unknown)
+}
+
 // Doesn't buy us anything, all Releasy tests pass, a case which is already covered by Shiny.
 //func TestParseReleasyTestLog(t * testing.T) {
 //	inputSlice := GetTestReleasyTestLog(t)

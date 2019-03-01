@@ -16,3 +16,9 @@ shiny.Rcheck/shiny/
 **/*.h
 **/include/
 **/*.hpp
+**/*LICENSE
+**/R
+**/Rscript
+**/NEWS.md
+**/*Rmd
+**/*.so
