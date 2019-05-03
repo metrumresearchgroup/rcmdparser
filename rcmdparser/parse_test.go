@@ -1,9 +1,10 @@
 package rcmdparser
 
 import (
-	"github.com/franela/goblin"
 	"reflect"
 	"testing"
+
+	"github.com/franela/goblin"
 )
 
 func TestParseTestLog(t *testing.T) {
@@ -99,8 +100,7 @@ func TestParseTestLog(t *testing.T) {
 
 func TestParseCheckLog(t *testing.T) {
 
-	var inputLog =
-		`* checking foreign function calls ... OK
+	var inputLog = `* checking foreign function calls ... OK
 * checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
