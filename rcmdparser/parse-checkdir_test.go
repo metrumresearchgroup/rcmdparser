@@ -1,12 +1,11 @@
 package rcmdparser
 
 import (
-	"reflect"
-	"testing"
-
+	"fmt"
 	"github.com/dpastoor/goutils"
-
 	"github.com/spf13/afero"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestReadCheckDir(t *testing.T) {
@@ -57,10 +56,16 @@ func TestReadCheckDir(t *testing.T) {
 			},
 		},
 	}
+	//for _, tt := range cdtests {
+	//	actual, _ := parseCheckDir(testFS, tt.in)
+	//	if !reflect.DeepEqual(actual, tt.expected) {
+	//		t.Errorf("GOT: %v, WANT: %v", actual, tt.expected)
+	//	}
+	//}
+
+
 	for _, tt := range cdtests {
-		actual, _ := ParseCheckDir(testFS, tt.in)
-		if !reflect.DeepEqual(actual, tt.expected) {
-			t.Errorf("GOT: %v, WANT: %v", actual, tt.expected)
-		}
+		actual, _ := parseCheckDir(testFS, tt.in)
+		assert.Equal(t, actual, tt.expected, fmt.Sprintf("%s, ok", tt.in))
 	}
 }

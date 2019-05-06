@@ -18,7 +18,7 @@ import (
 // * (maybe) tests/testthat.Rout.fail
 //
 // cd - CheckOutputRaw directory
-func ParseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
+func parseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
 	ok, _ := goutils.DirExists(fs, cd)
 	if !ok {
 		return CheckOutputInfo{}, fmt.Errorf("dir does not exist: %s", cd)

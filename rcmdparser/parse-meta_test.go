@@ -17,6 +17,29 @@ import (
 * checking package namespace information ... OK
  */
 
+//
+//func Test_ParseMeta(t *testing.T)
+//{
+//type test struct {
+//	Input    []byte
+//	Expected string
+//	Actual string
+//	Context  string
+//}
+//
+//tests := []test{
+//
+//// todo: shouldn't this one expect Failed:1 ?
+//test{
+//Input: []byte("* using log directory ‘/Users/devinpastoor/Downloads/output/shiny.Rcheck’"),
+//Expected: "/Users/devinpastoor/Downloads/output/shiny.Rcheck",
+//Actual:
+//Context: "shiny.Rcheck",
+//},
+//}
+//
+//}
+
 
 func TestParse_LogDirectory(t *testing.T) {
 	fixture := EnvirnomentInformation{}
