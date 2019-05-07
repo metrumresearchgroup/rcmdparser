@@ -9,14 +9,14 @@ type CheckResults struct {
 
 // CheckLogEntries are the parsed results from the check log
 type CheckLogEntries struct {
-	Environment EnvirnomentInformation
+	Environment EnvironmentInformation
 	Errors      []string
 	Warnings    []string
 	Notes       []string
 }
 
 // EnvirnomentInformation stores metadata about the RCMDCHECK
-type EnvirnomentInformation struct {
+type EnvironmentInformation struct {
 	LogDir         string
 	Rversion       string
 	Platform       string
