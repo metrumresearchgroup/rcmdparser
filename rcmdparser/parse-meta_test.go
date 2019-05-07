@@ -1,8 +1,9 @@
 package rcmdparser
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 /*
@@ -17,69 +18,68 @@ import (
 * checking package namespace information ... OK
  */
 
-//
-//func Test_ParseMeta(t *testing.T)
-//{
-//type test struct {
-//	Input    []byte
-//	Expected string
-//	Actual string
-//	Context  string
-//}
-//
-//tests := []test{
-//
-//// todo: shouldn't this one expect Failed:1 ?
-//test{
-//Input: []byte("* using log directory ‘/Users/devinpastoor/Downloads/output/shiny.Rcheck’"),
-//Expected: "/Users/devinpastoor/Downloads/output/shiny.Rcheck",
-//Actual:
-//Context: "shiny.Rcheck",
-//},
-//}
-//
-//}
+func Test_ParseMeta(t *testing.T) {
+	type metaTest struct {
+		Fixture  EnvirnomentInformation
+		Input    []byte
+		Expected EnvirnomentInformation
+		Messsage string
+	}
+	tests := []metaTest{
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("* using log directory ‘/Users/devinpastoor/Downloads/output/shiny.Rcheck’"),
+			Expected: EnvirnomentInformation{
+				LogDir: "/Users/devinpastoor/Downloads/output/shiny.Rcheck",
+			},
+			Messsage: "Meta data not equal: LogDir",
+		},
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("using R version 3.5.2 (2018-12-20)"),
+			Expected: EnvirnomentInformation{
+				Rversion: "3.5.2",
+			},
+			Messsage: "Meta data not equal: Rversion",
+		},
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("* using platform: x86_64-apple-darwin15.6.0 (64-bit)"),
+			Expected: EnvirnomentInformation{
+				Platform: "x86_64-apple-darwin15.6.0 (64-bit)",
+			},
+			Messsage: "Meta data not equal: Platform",
+		},
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("* using options ‘--no-manual --no-build-vignettes’"),
+			Expected: EnvirnomentInformation{
+				Options: "--no-manual --no-build-vignettes",
+			},
+			Messsage: "Meta data not equal: Options",
+		},
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("* using options ‘--no-manual --no-build-vignettes’"),
+			Expected: EnvirnomentInformation{
+				Options: "--no-manual --no-build-vignettes",
+			},
+			Messsage: "Meta data not equal: Options",
+		},
+		metaTest{
+			Fixture: EnvirnomentInformation{},
+			Input:   []byte("* this is package ‘shiny’ version ‘1.2.0’"),
+			Expected: EnvirnomentInformation{
+				Package:        "shiny",
+				PackageVersion: "1.2.0",
+			},
+			Messsage: "Meta data not equal: Package and/or PackageVersion",
+		},
+	}
 
-
-func TestParse_LogDirectory(t *testing.T) {
-	fixture := EnvirnomentInformation{}
-	inputSlice := []byte("* using log directory ‘/Users/devinpastoor/Downloads/output/shiny.Rcheck’")
-	fixture.Parse(inputSlice)
-	expected := "/Users/devinpastoor/Downloads/output/shiny.Rcheck"
-	assert.Equal(t, expected, fixture.LogDir)
-
-}
-
-func TestParse_RVersion(t *testing.T) {
-	fixture := EnvirnomentInformation{}
-	inputSlice := []byte("using R version 3.5.2 (2018-12-20)")
-	fixture.Parse(inputSlice)
-	expected := "3.5.2"
-	assert.Equal(t, expected, fixture.Rversion)
-}
-
-func TestParse_Platform(t *testing.T) {
-	fixture := EnvirnomentInformation{}
-	inputSlice := []byte("* using platform: x86_64-apple-darwin15.6.0 (64-bit)")
-	fixture.Parse(inputSlice)
-	expected := "x86_64-apple-darwin15.6.0 (64-bit)"
-	assert.Equal(t, expected, fixture.Platform)
-}
-
-func TestParse_Options(t *testing.T) {
-	fixture := EnvirnomentInformation{}
-	inputSlice := []byte("* using options ‘--no-manual --no-build-vignettes’")
-	fixture.Parse(inputSlice)
-	expected := "--no-manual --no-build-vignettes"
-	assert.Equal(t, expected, fixture.Options)
-}
-
-func TestParse_PackageAndVersion(t *testing.T) {
-	fixture := EnvirnomentInformation{}
-	inputSlice := []byte("* this is package ‘shiny’ version ‘1.2.0’")
-	fixture.Parse(inputSlice)
-	expectedPackage := "shiny"
-	expectedVersion := "1.2.0"
-	assert.Equal(t, expectedPackage, fixture.Package)
-	assert.Equal(t, expectedVersion, fixture.PackageVersion)
+	for _, tst := range tests {
+		actual := EnvirnomentInformation{}
+		actual.Parse(tst.Input)
+		assert.Equal(t, tst.Expected, actual, tst.Messsage)
+	}
 }
