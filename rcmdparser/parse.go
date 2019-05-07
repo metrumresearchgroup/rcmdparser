@@ -14,7 +14,7 @@ func parseCheckLog(e []byte) CheckLogEntries {
 	var errors []string
 	var notes []string
 	var warnings []string
-	var meta EnvirnomentInformation
+	var meta EnvironmentInformation
 	for _, entry := range splitOutput {
 
 		switch {

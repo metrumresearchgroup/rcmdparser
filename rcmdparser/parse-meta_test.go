@@ -20,56 +20,56 @@ import (
 
 func Test_ParseMeta(t *testing.T) {
 	type metaTest struct {
-		Fixture  EnvirnomentInformation
+		Fixture  EnvironmentInformation
 		Input    []byte
-		Expected EnvirnomentInformation
+		Expected EnvironmentInformation
 		Messsage string
 	}
 	tests := []metaTest{
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("* using log directory ‘/Users/devinpastoor/Downloads/output/shiny.Rcheck’"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				LogDir: "/Users/devinpastoor/Downloads/output/shiny.Rcheck",
 			},
 			Messsage: "Meta data not equal: LogDir",
 		},
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("using R version 3.5.2 (2018-12-20)"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				Rversion: "3.5.2",
 			},
 			Messsage: "Meta data not equal: Rversion",
 		},
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("* using platform: x86_64-apple-darwin15.6.0 (64-bit)"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				Platform: "x86_64-apple-darwin15.6.0 (64-bit)",
 			},
 			Messsage: "Meta data not equal: Platform",
 		},
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("* using options ‘--no-manual --no-build-vignettes’"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				Options: "--no-manual --no-build-vignettes",
 			},
 			Messsage: "Meta data not equal: Options",
 		},
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("* using options ‘--no-manual --no-build-vignettes’"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				Options: "--no-manual --no-build-vignettes",
 			},
 			Messsage: "Meta data not equal: Options",
 		},
 		metaTest{
-			Fixture: EnvirnomentInformation{},
+			Fixture: EnvironmentInformation{},
 			Input:   []byte("* this is package ‘shiny’ version ‘1.2.0’"),
-			Expected: EnvirnomentInformation{
+			Expected: EnvironmentInformation{
 				Package:        "shiny",
 				PackageVersion: "1.2.0",
 			},
@@ -78,7 +78,7 @@ func Test_ParseMeta(t *testing.T) {
 	}
 
 	for _, tst := range tests {
-		actual := EnvirnomentInformation{}
+		actual := EnvironmentInformation{}
 		actual.Parse(tst.Input)
 		assert.Equal(t, tst.Expected, actual, tst.Messsage)
 	}
