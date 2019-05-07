@@ -208,6 +208,37 @@ func TestParseCheckLogs(t *testing.T) {
 	}
 }
 
+func TestParseTestLog(t *testing.T) {
+	type test struct {
+		Input    []byte
+		Expected TestResults
+		Message  string
+	}
+	tests := []test{
+		test{
+			Input:    []byte(""),
+			Expected: TestResults{},
+			Message:  "Not equal: Zero length slice test",
+		},
+		test{
+			Input: []byte("library(testthat)"),
+			Expected: TestResults{
+				Available: true,
+			},
+			Message: "Not equal: Contains <library(testthat)> test",
+		},
+		test{
+			Input:    []byte("library)"),
+			Expected: TestResults{},
+			Message:  "Not equal: Does not contain <library(testthat)> test",
+		},
+	}
+	for _, tst := range tests {
+		actual := parseTestLog(tst.Input)
+		assert.Equal(t, tst.Expected, actual, tst.Message)
+	}
+}
+
 func getFileContents(t *testing.T, filepath string) []byte {
 	var fileSystem = new(afero.OsFs)
 
