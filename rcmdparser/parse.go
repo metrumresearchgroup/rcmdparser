@@ -81,7 +81,7 @@ func parseTestsFromCheckLog(rawLog []byte) TestResults {
 
 // ParseTestLog parses the testthat log
 func parseTestLog(e []byte) TestResults {
-	if len(e) == 0 || bytes.Contains(e, []byte("library(testthat)")) == false {
+	if len(e) == 0 || !bytes.Contains(e, []byte("library(testthat)")) {
 		return TestResults{}
 	}
 	contents := bytes.Split(e, []byte("library(testthat)"))[1]
