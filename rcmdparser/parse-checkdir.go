@@ -53,6 +53,7 @@ func parseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
 		test.HasTests = true
 		testthatFilePath := filepath.Join(cd, "tests", "testthat.Rout")
 		testthatFileFailPath := filepath.Join(cd, "tests", "testthat.Rout.fail")
+		testallFilePath := filepath.Join(cd, "tests", "test-all.Rout")
 
 		if exists(fs, testthatFilePath) {
 			testFile, _ := afero.ReadFile(fs, testthatFilePath)
@@ -60,6 +61,10 @@ func parseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
 			test.ResultsFile = testFile
 		} else if exists(fs, testthatFileFailPath) {
 			testFile, _ := afero.ReadFile(fs, testthatFileFailPath)
+			test.UsesTestthat = true
+			test.ResultsFile = testFile
+		} else if exists(fs, testallFilePath) {
+			testFile, _ := afero.ReadFile(fs, testallFilePath)
 			test.UsesTestthat = true
 			test.ResultsFile = testFile
 		}
