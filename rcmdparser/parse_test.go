@@ -208,6 +208,60 @@ func TestParseCheckLogs(t *testing.T) {
 	}
 }
 
+func TestParseTestsFromCheckLog(t *testing.T) {
+	type test struct {
+		Input    string
+		Expected TestResults
+		Context  string
+	}
+	tests := []test{
+		test{
+			Input: "./testdata/RcppTOML.Rcheck_fail/00check.log",
+			Expected: TestResults{
+				Ok:      7,
+				Skipped: 0,
+				Failed:  1,
+			},
+			Context: "testRcppTOML.Rcheck_fail checklog",
+		},
+		test{
+			Input: "./testdata/RcppTOML.Rcheck_pass/00check.log",
+			Expected: TestResults{
+				Ok:      8,
+				Skipped: 0,
+				Failed:  0,
+			},
+			Context: "testRcppTOML.Rcheck_pass checklog",
+		},
+		test{
+			Input: "./testdata/data.table.Rcheck_pass/00check.log",
+			Expected: TestResults{
+				Ok:      2,
+				Skipped: 0,
+				Failed:  0,
+			},
+			Context: "data_table.Rcheck_pass checklog",
+		},
+		test{
+			Input: "./testdata/data.table.Rcheck_fail/00check.log",
+			Expected: TestResults{
+				Ok:      2,
+				Skipped: 0,
+				Failed:  1,
+			},
+			Context: "data_table.Rcheck_fail checklog",
+		},
+	}
+
+	for _, tst := range tests {
+		inputSlice := getFileContents(t, tst.Input)
+		actual := parseTestsFromCheckLog(inputSlice)
+		assert.Equal(t, tst.Expected.Ok, actual.Ok, fmt.Sprintf("Not equal <ok> %s", tst.Context))
+		assert.Equal(t, tst.Expected.Skipped, actual.Skipped, fmt.Sprintf("Not equal <skipped> %s", tst.Context))
+		assert.Equal(t, tst.Expected.Failed, actual.Failed, fmt.Sprintf("Not equal <fails>: %s", tst.Context))
+	}
+}
+
 func TestParseTestLog(t *testing.T) {
 	type test struct {
 		Input    []byte

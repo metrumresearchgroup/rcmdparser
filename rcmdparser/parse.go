@@ -52,17 +52,17 @@ func parseTestsFromCheckLog(rawLog []byte) TestResults {
 
 	splitOutput := bytes.Split(rawLog, []byte("* "))
 	for _, entry := range splitOutput {
-
 		if bytes.Contains(entry, []byte("checking tests ...")) {
-
 			//I have to split on "\sRunning\s" to avoid splitting on the word "Running" when it reappaers in failure results,
 			//specifically with regards to the data.table failed log.
 			tests := bytes.Split(entry, []byte(" Running "))[1:] //Cut off the "checking tests" section.
 			for _, test := range tests {
-				if bytes.Contains(test, []byte("ERROR")) || bytes.Contains(test, []byte("fail")) {
-					failed++
-				} else if bytes.Contains(test, []byte(" ... OK")) {
+				// converting to string to take advantage of TrimSpace and HasSuffix
+				str := strings.TrimSpace(string(test))
+				if strings.HasSuffix(str, "... OK"){
 					ok++
+				} else if strings.Contains(str, "ERROR") || strings.Contains(str, "fail") || strings.Contains(str, "  Comparing"){
+					failed++
 				} else {
 					unknown++
 				}
