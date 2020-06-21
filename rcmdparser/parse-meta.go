@@ -6,7 +6,7 @@ import (
 )
 
 // Parse consumes a log entry and updates the check metadata if relevant
-func (cm *EnvirnomentInformation) Parse(entry []byte) {
+func (cm *EnvironmentInformation) Parse(entry []byte) {
 	switch {
 	case bytes.Contains(entry, []byte("log directory")):
 		cm.LogDir = extractBetweenQuotes(entry)

@@ -9,12 +9,12 @@ import (
 )
 
 // ParseCheckLog parses the check log
-func ParseCheckLog(e []byte) CheckLogEntries {
+func parseCheckLog(e []byte) CheckLogEntries {
 	splitOutput := bytes.Split(e, []byte("* "))
 	var errors []string
 	var notes []string
 	var warnings []string
-	var meta EnvirnomentInformation
+	var meta EnvironmentInformation
 	for _, entry := range splitOutput {
 
 		switch {
@@ -41,9 +41,47 @@ func ParseCheckLog(e []byte) CheckLogEntries {
 	}
 }
 
+func parseTestsFromCheckLog(rawLog []byte) TestResults {
+	if len(rawLog) == 0 {
+		return TestResults{}
+	}
+	var ok = 0
+	var failed = 0
+	var skipped = 0
+	var unknown = 0
+
+	splitOutput := bytes.Split(rawLog, []byte("* "))
+	for _, entry := range splitOutput {
+		if bytes.Contains(entry, []byte("checking tests ...")) {
+			//I have to split on "\sRunning\s" to avoid splitting on the word "Running" when it reappaers in failure results,
+			//specifically with regards to the data.table failed log.
+			tests := bytes.Split(entry, []byte(" Running "))[1:] //Cut off the "checking tests" section.
+			for _, test := range tests {
+				// converting to string to take advantage of TrimSpace and HasSuffix
+				str := strings.TrimSpace(string(test))
+				if strings.HasSuffix(str, "... OK"){
+					ok++
+				} else if strings.Contains(str, "ERROR") || strings.Contains(str, "fail") || strings.Contains(str, "  Comparing"){
+					failed++
+				} else {
+					unknown++
+				}
+			}
+		}
+	}
+
+	//TODO: Can tests be skipped like this?
+	return TestResults{
+		Ok: ok,
+		Failed: failed,
+		Skipped: skipped,
+		Unknown: unknown,
+	}
+}
+
 // ParseTestLog parses the testthat log
-func ParseTestLog(e []byte) TestResults {
-	if len(e) == 0 {
+func parseTestLog(e []byte) TestResults {
+	if len(e) == 0 || !bytes.Contains(e, []byte("library(testthat)")) {
 		return TestResults{}
 	}
 	contents := bytes.Split(e, []byte("library(testthat)"))[1]
@@ -70,42 +108,4 @@ func ParseTestLog(e []byte) TestResults {
 		}
 	}
 	return tr
-}
-
-func ParseTestsFromCheckLog(rawLog []byte) TestResults {
-	if len(rawLog) == 0 {
-		return TestResults{}
-	}
-	var ok = 0
-	var failed = 0
-	var skipped = 0
-	var unknown = 0
-
-	splitOutput := bytes.Split(rawLog, []byte("* "))
-	for _, entry := range splitOutput {
-
-		if bytes.Contains(entry, []byte("checking tests ...")) {
-
-			//I have to split on "\sRunning\s" to avoid splitting on the word "Running" when it reappaers in failure results,
-			//specifically with regards to the data.table failed log.
-			tests := bytes.Split(entry, []byte(" Running "))[1:] //Cut off the "checking tests" section.
-			for _, test := range tests {
-				if bytes.Contains(test, []byte("ERROR")) || bytes.Contains(test, []byte("fail")) {
-					failed++
-				} else if bytes.Contains(test, []byte(" ... OK")) {
-					ok++
-				} else {
-					unknown++
-				}
-			}
-		}
-	}
-
-	//TODO: Can tests be skipped like this?
-	return TestResults{
-		Ok: ok,
-		Failed: failed,
-		Skipped: skipped,
-		Unknown: unknown,
-	}
 }

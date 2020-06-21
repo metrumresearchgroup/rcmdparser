@@ -7,7 +7,7 @@ import (
 // NewCheck creates a new CheckOutputRaw Object
 // fs and check directory
 func NewCheck(fs afero.Fs, cd string) (CheckResults, error) {
-	cr, err := ParseCheckDir(fs, cd)
+	cr, err := parseCheckDir(fs, cd)
 	if err != nil {
 		return CheckResults{}, err
 	}
@@ -17,14 +17,14 @@ func NewCheck(fs afero.Fs, cd string) (CheckResults, error) {
 // Parse output to LogResults
 func (c CheckOutputInfo) Parse() CheckResults {
 	lr := CheckResults{
-		Checks: ParseCheckLog(c.CheckOutputRaw),
+		Checks: parseCheckLog(c.CheckOutputRaw),
 	}
 	if c.TestInfo.UsesTestthat {
-		lr.Tests = ParseTestLog(c.TestInfo.ResultsFile)
+		lr.Tests = parseTestLog(c.TestInfo.ResultsFile)
 	} else {
 		//Assume that the test information is in the check log and pull it from there.
 		//TODO: This case may not be as generalizable.
-		lr.Tests = ParseTestsFromCheckLog(c.CheckOutputRaw)
+		lr.Tests = parseTestsFromCheckLog(c.CheckOutputRaw)
 	}
 	return lr
 }

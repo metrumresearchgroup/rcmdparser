@@ -18,7 +18,7 @@ import (
 // * (maybe) tests/testthat.Rout.fail
 //
 // cd - CheckOutputRaw directory
-func ParseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
+func parseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
 	ok, _ := goutils.DirExists(fs, cd)
 	if !ok {
 		return CheckOutputInfo{}, fmt.Errorf("dir does not exist: %s", cd)
@@ -43,25 +43,29 @@ func ParseCheckDir(fs afero.Fs, cd string) (CheckOutputInfo, error) {
 		return CheckOutputInfo{}, err
 	}
 
-	var test TestInfo
+    var test TestInfo
 	hasTests, _ := goutils.DirExists(fs, filepath.Join(cd, "tests"))
 
 	if hasTests {
-
 		// regular tests
 		// TODO(devin): implement tests for non-testthat package
 		test.HasTests = true
-		testthatFilePath := filepath.Join(cd, "tests", "testthat.Rout")
-		testthatFileFailPath := filepath.Join(cd, "tests", "testthat.Rout.fail")
+		searchPath := filepath.Join(cd, "tests", "*")
+		matches, _ := afero.Glob(fs, searchPath) 
+	
+		for _, match := range matches {
+			isTestthat, _ := afero.FileContainsBytes(fs, match, []byte("library(testthat)"))
+			if isTestthat{
+				test.UsesTestthat = true;
+				testFile, _ := afero.ReadFile(fs, match)
+				test.ResultsFile = testFile
+				break;
+			}
+		}
 
-		if exists(fs, testthatFilePath) {
-			testFile, _ := afero.ReadFile(fs, testthatFilePath)
-			test.UsesTestthat = true
-			test.ResultsFile = testFile
-		} else if exists(fs, testthatFileFailPath) {
-			testFile, _ := afero.ReadFile(fs, testthatFileFailPath)
-			test.UsesTestthat = true
-			test.ResultsFile = testFile
+		if !test.UsesTestthat {
+			// use some other method to find and load the correct results file
+			// or get info from 00check.log
 		}
 	}
 
